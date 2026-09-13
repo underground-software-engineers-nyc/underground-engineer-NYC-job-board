@@ -1,43 +1,53 @@
-# underground-engineer-NYC-job-board
+# THE HIRING HALL
 
-Applications ledger for **Underground Software Engineer — NYC**.
+**UNDERGROUND SOFTWARE ENGINEER — NYC · APPLICATIONS LEDGER.**
 
-This repository is the only application door — and it is a door, not a form:
+This is the ledger, not the door. The door is the signal on the main site.
+Solve it. It hands you this repo.
 
-- The quest lives on the **main site**. Solve it. It hands you this repo.
-- Applications are **GitHub Issues or Pull Requests only** — one per candidate. No email, no DMs, no comments on strangers' threads.
-- Put your answers, portfolio, and anything with substance in a **gist or external link** and reference it — keep the thread a thread.
-- The **crew reviews** every submission. Acceptances come with a signed crew pass; refusals are polite.
+By the time you're here you're past the turnstile. The rest is paperwork —
+engineer's paperwork.
 
-## Submit via ISSUE
+## HOW TO SIGN ON
 
-Open an issue using the **Crew application** template:
+Applications are **GITHUB ISSUES or PULL REQUESTS**. One per candidate.
+No email. No DMs. No back door.
 
-- [New issue →](https://github.com/underground-software-engineers-nyc/underground-engineer-NYC-job-board/issues/new/choose)
-- Prove you solved the quest (challenge answers).
-- Link your portfolio / code as a gist or external site.
-- One issue per candidate. Label lands as `application`.
+Answers, code, portfolio — put it in a **GIST or EXTERNAL LINK** and reference
+it in the thread. The thread stays a thread.
 
-## Submit via PULL REQUEST
+### ROUTE A — ISSUE
 
-Fork this repo, add `applications/<your-handle>.md`, fill the PR template, and open the PR:
+Open an issue with the **Crew application** template. Prove you solved the
+quest. Sign your handle.
 
-- [Fork →](https://github.com/underground-software-engineers-nyc/underground-engineer-NYC-job-board/fork)
-- Include the challenge answers and your application in the PR body.
-- Link a gist or external portfolio. The crew reviews the diff.
+[OPEN AN ISSUE →](https://github.com/underground-software-engineers-nyc/underground-engineer-NYC-job-board/issues/new/choose)
 
-## The crew decides
+### ROUTE B — PULL REQUEST
 
-- Every submission carries the `review` label and is read by the crew.
-- `accepted` → you are added to the private crew repo and a signed crew pass is minted.
-- `refused` → polite, one line. The tunnel keeps its counsel.
+Fork the repo. Add `applications/<your-handle>.md`. Open the PR with the
+template. The crew reads the diff.
 
-## Labels
+[FORK + OPEN A PR →](https://github.com/underground-software-engineers-nyc/underground-engineer-NYC-job-board/fork)
 
-`application` · `job-application` · `review` · `accepted` · `refused`
+## THE DECISION
 
-## Operator setup (one time)
+- Every submission gets stamped `review` and is read by the crew.
+- `accepted` — you join the private crew repo. A signed pass is minted with your handle inside it.
+- `refused` — polite, one line. The tunnel keeps its counsel.
 
-1. This repo is **public** (README + templates ship in it).
-2. `ISSUE_TEMPLATE/` + `PULL_REQUEST_TEMPLATE.md` already live under `.github/`.
-3. Submit routes are wired in `jobs/src/lib/content.ts` and `src/lib/signal.ts` of the main repo.
+## LABELS
+
+| Label | Meaning |
+| --- | --- |
+| `application` | new arrival |
+| `job-application` | crew-only role bid |
+| `review` | in the stack |
+| `accepted` | boarded |
+| `refused` | rerouted |
+
+## OPERATOR SETUP (ONE TIME)
+
+- This repo is public. README and `.github/` ship in it.
+- Templates live in `.github/ISSUE_TEMPLATE/` and `.github/PULL_REQUEST_TEMPLATE.md`.
+- The main site hands off here — wired in `jobs/src/lib/content.ts` and `src/lib/signal.ts`.
