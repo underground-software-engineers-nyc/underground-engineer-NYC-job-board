@@ -34,8 +34,8 @@ template. The crew reads the diff.
 
 The template asks for three things: **proof of the signal** (you solved the
 quest — the channel proves it), **what you build** (real systems, shipped —
-links beat claims), and **where you ride** (your discipline and the line you
-want to run). One idea per answer. The crew reads every submission.
+links beat claims), and **your discipline** (what you work in, and what you
+want to work in). One idea per answer. The crew reads every submission.
 
 ## THE DECISION
 
@@ -77,12 +77,14 @@ Members build and operate the machine together. AI generates. Engineers decide.
 | `accepted` | boarded |
 | `refused` | rerouted |
 
-## OPERATOR SETUP (ONE TIME)
+## HOW THIS REPO WORKS
 
-- This repo is public. README and `.github/` ship in it.
+- Applications are issues and pull requests. Nothing else lands here.
 - Templates live in `.github/ISSUE_TEMPLATE/` and `.github/PULL_REQUEST_TEMPLATE.md`.
-- The main site hands off here — wired in `jobs/src/lib/content.ts` and `src/lib/signal.ts`.
+- Labels run the ledger: see the table above.
+- The main site's quest hands off to this repo. If you found the door some other
+  way, read the site's code and find the signal — it's the same door.
 
 ---
 
-*THE LINE ONLY RUNS FOR PEOPLE ON IT.*
+*THE TRAIN MOVES. THE LEDGER STAYS OPEN.*
