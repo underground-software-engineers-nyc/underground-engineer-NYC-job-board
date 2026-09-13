@@ -1,0 +1,94 @@
+# THE HIRING HALL — application triage.
+#
+# Every issue/PR that arrives here is the application ledger's raw input.
+# This workflow stamps the ledger so nothing sits unread:
+#   - issues titled [APPLICATION] → `application` + `review`
+#   - any other issue → `review` (a human decides what it is)
+#   - PRs touching applications/ → `application` + `review`
+# It also validates that the templates the flow depends on stay in place.
+#
+# The operator still reads everything. Labels are bookkeeping, not decisions.
+
+name: hiring-hall
+
+on:
+  issues:
+    types: [opened, reopened]
+  pull_request:
+    types: [opened, reopened]
+  push:
+    branches: [main]
+    paths:
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  triage:
+    if: github.event_name == 'issues' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stamp an application issue
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ensure = async (name) => {
+              try {
+                await github.rest.issues.getLabel({ ...context.repo, name });
+              } catch {
+                await github.rest.issues.createLabel({ ...context.repo, name, color: '7a8a99' });
+              }
+            };
+            const title = context.payload.issue.title || '';
+            const isApp = title.includes('[APPLICATION]') || title.includes('[application]');
+            const labels = isApp ? ['application', 'review'] : ['review'];
+            for (const l of labels) await ensure(l);
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: context.payload.issue.number,
+              labels,
+            });
+
+      - name: Stamp an application PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ensure = async (name) => {
+              try {
+                await github.rest.issues.getLabel({ ...context.repo, name });
+              } catch {
+                await github.rest.issues.createLabel({ ...context.repo, name, color: '7a8a99' });
+              }
+            };
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              ...context.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100,
+            });
+            const touchesApplications = files.some(f => f.filename.startsWith('applications/'));
+            const labels = touchesApplications ? ['application', 'review'] : ['review'];
+            for (const l of labels) await ensure(l);
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              labels,
+            });
+
+  guard-templates:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Templates the flow depends on must exist
+        run: |
+          test -f ".github/ISSUE_TEMPLATE/crew-application.md" || { echo "::error::missing .github/ISSUE_TEMPLATE/crew-application.md"; exit 1; }
+          test -f ".github/ISSUE_TEMPLATE/config.yml"             || { echo "::error::missing .github/ISSUE_TEMPLATE/config.yml"; exit 1; }
+          test -f ".github/PULL_REQUEST_TEMPLATE.md"              || { echo "::error::missing .github/PULL_REQUEST_TEMPLATE.md"; exit 1; }
+          echo "templates present ✓"
